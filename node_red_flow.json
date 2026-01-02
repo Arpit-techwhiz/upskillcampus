@@ -1,0 +1,180 @@
+[
+    {
+        "id": "eba048da0d29335a",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8871dfbc5404b6bc",
+        "type": "mqtt in",
+        "z": "eba048da0d29335a",
+        "name": "Temperature",
+        "topic": "iot/esp8266/temperature",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "5733cc919a34a842",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 530,
+        "y": 320,
+        "wires": [
+            [
+                "ccae8882f67f6857"
+            ]
+        ]
+    },
+    {
+        "id": "aba21dc725dd82af",
+        "type": "mqtt in",
+        "z": "eba048da0d29335a",
+        "name": "Humidity",
+        "topic": "iot/esp8266/humidity",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "5733cc919a34a842",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 530,
+        "y": 420,
+        "wires": [
+            [
+                "a0a85e6b25cc54da"
+            ]
+        ]
+    },
+    {
+        "id": "ccae8882f67f6857",
+        "type": "function",
+        "z": "eba048da0d29335a",
+        "name": "Validate Temp",
+        "func": "if (typeof msg.payload !== \"number\") {\n    let v = Number(msg.payload);\n    if (isNaN(v)) return null;\n    msg.payload = v;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 320,
+        "wires": [
+            [
+                "e018144c1f110373"
+            ]
+        ]
+    },
+    {
+        "id": "a0a85e6b25cc54da",
+        "type": "function",
+        "z": "eba048da0d29335a",
+        "name": "Validate Hum",
+        "func": "if (typeof msg.payload !== \"number\") {\n    let v = Number(msg.payload);\n    if (isNaN(v)) return null;\n    msg.payload = v;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 420,
+        "wires": [
+            [
+                "2c141e4ba347a5f4"
+            ]
+        ]
+    },
+    {
+        "id": "e018144c1f110373",
+        "type": "ui_gauge",
+        "z": "eba048da0d29335a",
+        "name": "Temperature (°C)",
+        "group": "532656e569579b17",
+        "order": 1,
+        "width": "",
+        "height": "",
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 50,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 970,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "2c141e4ba347a5f4",
+        "type": "ui_gauge",
+        "z": "eba048da0d29335a",
+        "name": "Humidity (%)",
+        "group": "532656e569579b17",
+        "order": 2,
+        "width": "",
+        "height": "",
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 100,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 970,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "5733cc919a34a842",
+        "type": "mqtt-broker",
+        "name": "HiveMQ",
+        "broker": "broker.hivemq.com",
+        "port": "1883"
+    },
+    {
+        "id": "532656e569579b17",
+        "type": "ui_group",
+        "name": "Sensor Data",
+        "tab": "d6a4d7e69200f981",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d6a4d7e69200f981",
+        "type": "ui_tab",
+        "name": "ESP8266 Dashboard",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "441315309b826949",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
